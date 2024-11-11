@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks</title>
+    <link href="commonstyle.css" rel="stylesheet">
+ 
+</head>
+<body>
+    <div id="links">
+        <h2><a href="./index.html">Home</a></h2>
+        <h2><a href="./Applied.html">Applied Jobs</a></h2>
+        <h2><a href="./Bookmarks.html">Bookmarks</a></h2>
+    </div>
+
+    <select id="sortSalary" onchange="handleSalary
+    ()">
+        <option value="">Sort By salary:</option>
+        <option value="HTL">High to Low</option>
+        <option value="LTH">Low to High</option>
+    </select>
+
+    <select id="filterRole" onchange="handfilter()">
+        <option value="">Filter Role</option>
+            <option value="SDE1">SDE-1</option>
+            <option value="SDE2">SDE-2</option>
+            <option value="deveops">DevOps Engineer</option>
+            <option value="FSD">Full Stack Developer</option>
+            <option value="Backend">Backend Developer</option>
+            <option value="Frontend">Frontend Developer</option>
+            <option value="Database Administrator">Database Administrator</option>
+            <option value="Tester">Tester</option>
+            <option value="UI/UX developer">UI/UX Developer</option>
+            <option value="data_engineer">Data Engineer</option>
+            <option value="data_analyst">Data Analyst</option>
+            <option value="data_scientist">Data Scientist</option>
+            <option value="Big Data Engineer">Big Data Engineer</option>
+            <option value="ML Engineer">Machine Learning Engineer</option>
+            <option value="Cloud Architect">Cloud Architect</option>
+            <option value="Cybersecurity engineer">Cybersecurity Engineer</option>
+            <option value="blockchain developer">Blockchain Developer</option>
+    </select>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Job Applied</th>
+                <th>Salary Expected(LPA)</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="body">
+            <!-- Append your output to body -->
+        </tbody>
+    </table>
+    
+</body>
+</html>
+<script>
+    let filt_Data=JSON.parse(localStorage.getItem("bookmarks"));
+
+// filter by role
+function handfilter(){
+    let selected=document.getElementById("filterRole").value;
+    let filteredData=filt_Data.filter(function(element){
+        return element.role===selected;
+    })
+    // console.log(filteredData);
+    displayData(filteredData);
+}
+
+// filter by salary
+function handleSalary(){
+let selected_salary=document.getElementById("sortSalary").value;
+if(selected_salary=="HTL"){
+    filt_Data.sort(function(a,b){
+        return b.salary-a.salary;
+
+    })
+    displayData(filt_Data);
+
+}
+else{
+    filt_Data.sort(function(a,b){
+        return a.salary-b.salary;
+    })
+    displayData(filt_Data);
+
+}
+}
+
+    let Data=JSON.parse(localStorage.getItem("bookmarks"));
+    let tbody= document.querySelector("#body");
+
+    displayData(Data);
+    function displayData(Data){
+   document.querySelector("#body").innerHTML="";
+    Data.forEach(function(element,index){
+        let tr=document.createElement("tr");
+        let td1=document.createElement("td");
+        let td2=document.createElement("td");
+        let td3=document.createElement("td");
+        let td4=document.createElement("td");
+        let td5=document.createElement("button");
+
+        td1.innerText=element.name;
+        td2.innerText=element.email;
+        td3.innerText=element.role;
+        td4.innerText=element.salary;
+        td5.innerText="Remove";
+
+        td5.addEventListener("click",function(){
+            deleteJobList(element,index);
+        });
+
+        tr.append(td1,td2,td3,td4,td5);
+        tbody.append(tr);
+
+
+});
+
+}
+function deleteJobList(element,index){
+    Data.splice(index,1);
+    localStorage.setItem("bookmarks",JSON.stringify(Data));
+    window.location.reload();
+ 
+}
+
+
+
+
+</script>

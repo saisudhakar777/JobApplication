@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="style.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div id="links">
+        <h2><a href="./index.html">Home</a></h2>
+        <h2><a href="./Applied.html">Applied Jobs</a></h2>
+        <h2><a href="./Bookmarks.html">Bookmarks</a></h2>
+    </div>
+    <!-- <div id="body-form"> -->
+        <form id="form" style="background-color: rgb(219, 213, 206);">
+            <h3>Enter Your Application Details</h3>
+        <input id="name" type="text" placeholder="Enter Name">
+        <input id="email" type="email" placeholder="Enter email">
+        <select id="role" name="role">
+            <option value="">Select the job role</option>
+            <option value="SDE1">SDE-1</option>
+            <option value="SDE2">SDE-2</option>
+            <option value="deveops">DevOps Engineer</option>
+            <option value="FSD">Full Stack Developer</option>
+            <option value="Backend">Backend Developer</option>
+            <option value="Frontend">Frontend Developer</option>
+            <option value="Database Administrator">Database Administrator</option>
+            <option value="Tester">Tester</option>
+            <option value="UI/UX developer">UI/UX Developer</option>
+            <option value="data_engineer">Data Engineer</option>
+            <option value="data_analyst">Data Analyst</option>
+            <option value="data_scientist">Data Scientist</option>
+            <option value="Big Data Engineer">Big Data Engineer</option>
+            <option value="ML Engineer">Machine Learning Engineer</option>
+            <option value="Cloud Architect">Cloud Architect</option>
+            <option value="Cybersecurity engineer">Cybersecurity Engineer</option>
+            <option value="blockchain developer">Blockchain Developer</option>
+        </select>
+
+        <input id="salary" type="number" placeholder="Enter expected salary in lakhs">
+        <input type="submit" id="btn">
+        </form>
+        
+    <!-- </div> -->
+</body>
+</html>
+<script>
+    document.querySelector("#form").addEventListener("submit",myFunction);
+    let jobArray=JSON.parse(localStorage.getItem("jobApplication"))|| [];
+    
+
+    function myFunction(){
+        event.preventDefault();
+        let object={
+            name:document.querySelector("#name").value,
+            email:document.querySelector("#email").value,
+            role:document.querySelector("#role").value,
+            salary:document.querySelector("#salary").value
+
+
+        }
+        window.location.reload();
+
+       jobArray.push(object);
+        localStorage.setItem("jobApplication",JSON.stringify(jobArray));
+        
+    }
+    
+    
+    
+    //localStorage--->number/string
+    
+    //setItem-->add.
+    // localStorage.setItem("phonenumber",1234567);   
+
+    //getItem--->access
+    // let data=localStorage.getItem("phonenumber");
+    // console.log(typeof(data));
+
+
+     // // JSON.stringify-->it will keep the datatype same;
+    // localStorage.setItem("array",JSON.stringify([1,2,3,4,5,6,7]));
+
+    // let arrayData=JSON.parse(localStorage.getItem("array"));
+    // console.log(arrayData);
+    // // JSON.parse
+
+       
+</script>
